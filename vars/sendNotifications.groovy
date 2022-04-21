@@ -10,11 +10,9 @@ def call(String channel = '#zingle-deployment-notifs', String type = 'BUILD', St
   // Default values
   def color = 'RED'
   def colorCode = '#FF0000'
-  def summary = """${type} ${status}: Job '`${env.JOB_NAME}` [${env.BUILD_NUMBER}]' 
-  (${env.BUILD_URL})
+  def summary = """${type} ${status}: Job `${env.JOB_NAME}` [${env.BUILD_NUMBER}](${env.BUILD_URL})
 
-  ${env.CHANGE_TITLE}
-  (${env.CHANGE_URL})"""
+  [${env.CHANGE_TITLE}](${env.CHANGE_URL})"""
 
   // Override default values based on build status
   if (status == 'STARTED') {
