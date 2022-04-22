@@ -3,14 +3,14 @@
 /**
  * Send notifications based on build status string
  */
-def call(String channel = '#zingle-deployment-notifs', String type = 'BUILD', String status = 'STARTED') {
+def call(String channel = '#zingle-deployment-notifs', String stage = 'BUILD', String status = 'STARTED') {
   // build status of null means successful
   status =  status ?: 'SUCCESSFUL'
 
   // Default values
   def color = 'RED'
   def colorCode = '#FF0000'
-  def summary = """${type} ${status}: Job `${env.JOB_NAME}` [${env.BUILD_NUMBER}](${env.BUILD_URL})
+  def summary = """${stage} ${status}: Job `${env.JOB_NAME}` [${env.BUILD_NUMBER}](${env.BUILD_URL})
 
   [${env.CHANGE_TITLE}](${env.CHANGE_URL})"""
 
