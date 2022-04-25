@@ -1,4 +1,5 @@
 #!/usr/bin/env groovy
+import groovy.json.JsonOutput
 
 /**
  * Send notifications based on build status string
