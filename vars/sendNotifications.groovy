@@ -45,7 +45,7 @@ def call(options) {
 }
 
 def getTitle(options) {
-  return "${options.icon} ${env.BRANCH_NAME} build #: ${currentBuild.number} ${options.status} "
+  return "${options.icon} ${env.BRANCH_NAME} build #${currentBuild.number}:  ${options.status} "
 }
 
 def getFooter(options) {
