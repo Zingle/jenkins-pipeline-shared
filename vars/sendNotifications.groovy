@@ -18,7 +18,7 @@ def call(options) {
 
     def attachments = JsonOutput.toJson([
         [
-            "color": options.color,
+            "color": getColor(options),
             "title": getTitle(options),
             "text": text,
             "footer": footer
@@ -34,6 +34,14 @@ def call(options) {
   } catch (Exception error) {
     echo "sendSlackStatusNotification error ${error}"
   }
+}
+
+def getColor (options) {
+  color = 'grey'
+  if(options.color) {
+    color = options.color
+  }
+  return color
 }
 
 def getTitle(options) {
