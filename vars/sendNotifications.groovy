@@ -13,10 +13,8 @@ def call(options) {
         throw Exception("Slack channel not specified. Please specify a channel when calling function.")
     }
 
-    commitMessage = getCommitMessage()
-
-    def footer = getFooter()
-    def text = getText()
+    def footer = getFooter(options)
+    def text = getText(options)
 
     if(options.text_postfix) {
         text = text + " ${options.text_postfix}"
@@ -29,7 +27,7 @@ def call(options) {
     def attachments = JsonOutput.toJson([
         [
             "color": options.color,
-            "title": getTitle(),
+            "title": getTitle(options),
             "text": text,
             "footer": footer
         ]
@@ -46,15 +44,16 @@ def call(options) {
   }
 }
 
-def getTitle() {
+def getTitle(options) {
   return "${options.icon} ${env.BRANCH_NAME} build #: ${currentBuild.number} ${options.status} "
 }
 
-def getFooter() {
+def getFooter(options) {
   return "[<${env.CHANGE_URL}|${env.BRANCH_NAME}>] [<${env.BUILD_URL}|build #: ${currentBuild.number}>] [target: ${CHANGE_TARGET}]"
 }
 
-def getText() {
+def getText(options) {
+  commitMessage = getCommitMessage()
   return "${commitMessage} author: @${CHANGE_AUTHOR} \n[<${env.BUILD_URL}console|Jenkins Log>] [<${env.BUILD_URL}artifact|Build Artifacts>]"
 }
 
