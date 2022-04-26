@@ -66,7 +66,7 @@ def getFooter(options) {
 
 def getText(options) {
   commitMessage = getCommitMessage()
-  return "${commitMessage} author: @${CHANGE_AUTHOR} \n[<${env.BUILD_URL}console|Jenkins Log>] [<${env.BUILD_URL}artifact|Build Artifacts>]"
+  return "${commitMessage} \n[<${env.BUILD_URL}console|Jenkins Log>] [<${env.BUILD_URL}artifact|Build Artifacts>]"
 }
 
 def getCommitMessage() {
