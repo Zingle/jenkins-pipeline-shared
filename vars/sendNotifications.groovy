@@ -55,7 +55,7 @@ def getTitle(options) {
 }
 
 def getFooter(options) {
-  footer = "[<${env.CHANGE_URL}|${env.BRANCH_NAME}>] [<${env.BUILD_URL}|build #: ${currentBuild.number}>] [target: ${CHANGE_TARGET}]"
+  footer = "[<${env.CHANGE_URL}|${env.BRANCH_NAME}>] [<${env.BUILD_URL}|build #: ${currentBuild.number}>] [target: ${env.BRANCH_NAME}]"
 
   if(options.footer_postfix) {
       footer = footer + " ${options.footer_postfix}"
