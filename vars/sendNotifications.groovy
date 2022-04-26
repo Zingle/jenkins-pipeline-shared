@@ -2,7 +2,7 @@
 import groovy.json.JsonOutput
 
 /**
- * Send notifications based on build status string
+ * Send slack notification with customized options
  */
 def call(options) {
   try {
@@ -15,14 +15,6 @@ def call(options) {
 
     def footer = getFooter(options)
     def text = getText(options)
-
-    if(options.text_postfix) {
-        text = text + " ${options.text_postfix}"
-    }
-
-    if(options.footer_postfix) {
-        footer = footer + " ${options.footer_postfix}"
-    }
 
     def attachments = JsonOutput.toJson([
         [
@@ -45,11 +37,23 @@ def call(options) {
 }
 
 def getTitle(options) {
-  return "${options.icon} ${env.BRANCH_NAME} build #${currentBuild.number}:  ${options.status} "
+  text = "${options.icon} ${env.BRANCH_NAME} build #${currentBuild.number}: ${options.status} "
+
+  if(options.text_postfix) {
+      text = text + " ${options.text_postfix}"
+  }
+  return text
+
 }
 
 def getFooter(options) {
-  return "[<${env.CHANGE_URL}|${env.BRANCH_NAME}>] [<${env.BUILD_URL}|build #: ${currentBuild.number}>] [target: ${CHANGE_TARGET}]"
+  footer = "[<${env.CHANGE_URL}|${env.BRANCH_NAME}>] [<${env.BUILD_URL}|build #: ${currentBuild.number}>] [target: ${CHANGE_TARGET}]"
+
+  if(options.footer_postfix) {
+      footer = footer + " ${options.footer_postfix}"
+  }
+  return footer
+
 }
 
 def getText(options) {
