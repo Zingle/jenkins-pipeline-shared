@@ -45,7 +45,7 @@ def getColor (options) {
 }
 
 def getTitle(options) {
-  text = "${options.icon} `${env.JOB_NAME}` build #${currentBuild.number}: ${options.status} "
+  text = "${options.icon} `${options.appName}` build #${currentBuild.number}: ${options.status} "
 
   if(options.text_postfix) {
       text = text + " ${options.text_postfix}"
