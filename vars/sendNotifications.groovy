@@ -45,13 +45,22 @@ def getColor (options) {
 }
 
 def getTitle(options) {
-  text = "${options.icon} `${options.appName}` build #${currentBuild.number}: ${options.status} "
+  appName = getAppName(options)
+  text = "${options.icon} ${appName} build #${currentBuild.number}: ${options.status} "
 
   if(options.text_postfix) {
       text = text + " ${options.text_postfix}"
   }
   return text
 
+}
+
+def getAppName(options) {
+  appName = "No App Name"
+  if(options.appName) {
+    appName = options.appName
+  }
+  return appName
 }
 
 def getFooter(options) {
